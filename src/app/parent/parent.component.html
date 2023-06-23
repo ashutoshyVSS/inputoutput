@@ -1,0 +1,65 @@
+<div class="container">
+    <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+      
+      <div class="input-group mb-3">
+          <label for="name">Name:</label>
+          <input type="text" id="name" formControlName="name">
+          <div *ngIf="myform.get('name')?.invalid && myform.get('name')?.touched" class="error-message">
+            <div *ngIf="myform.get('name')?.hasError('required')">Name is required.</div>
+          </div>
+          
+        </div>
+      
+        <div class="input-group mb-3">
+            <label for="age">Age:</label>
+            <input type="text" id="age" formControlName="age">
+            <div *ngIf="myform.get('age')?.invalid && myform.get('age')?.touched" class="error-message">
+              <div *ngIf="myform.get('age')?.hasError('required')">Age is required.</div>
+            </div>
+          </div>
+    
+          <div class="input-group mb-3">
+            <label for="Id">ID:</label>
+            <input type="text" id="Id" formControlName="Id">
+            <div *ngIf="myform.get('Id')?.invalid && myform.get('Id')?.touched" class="error-message">
+              <div *ngIf="myform.get('Id')?.hasError('required')">Id is required.</div>
+            </div>
+          </div>
+    
+          <div class="input-group mb-3">
+          <label for="email">Email:</label>
+          <input type="email" id="email" formControlName="email">
+          <div *ngIf="myform.get('email')?.invalid && myform.get('email')?.touched" class="error-message">
+            <div *ngIf="myform.get('email')?.hasError('required')">Email is required.</div>
+            <div *ngIf="myform.get('email')?.hasError('email')">Invalid email format.</div>
+          </div>
+        </div>
+      
+        
+      
+        <button>Submit</button>
+       
+        
+      </form>
+    
+       <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of values">
+            <td>{{ data.Id }} </td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.age }}</td>
+            <td>{{ data.email }}</td><button (click)="removeItem(data.id)">remove</button>
+          </tr>
+        </tbody>
+      </table> 
+    </div>
+
+    <app-child [mydata]="values" *ngIf="values.length> 0" (newEvent)='removeItem($event)'></app-child>
